@@ -1,12 +1,16 @@
-# TODO  Напишите функцию count_letters
+# TODO Напишите функцию count_letters
 def count_letters(text=""):
+    # Приводим текст к нижнему регистру, чтобы считать буквы независимо от регистра
     text = text.lower()
     number_of_letters = {}
 
     for char in text:
+        # Проверить является ли символ буквой
         if char.isalpha(): 
+            # Если буква уже есть в словаре
             if char in number_of_letters:
                 number_of_letters[char] += 1
+            # Если буквы еще нет в словаре
             else:
                 number_of_letters[char] = 1
 
@@ -15,17 +19,16 @@ def count_letters(text=""):
     
 # TODO Напишите функцию calculate_frequency
 def calculate_frequency(number_of_letters):
-    
-    sum = 0
+    # Общее количество букв в словаре
+    sum_ = sum(number_of_letters.values())
+    # Список ключей (букв) из словаря
     key = list(number_of_letters.keys())
-    
+    # Вычисление доли каждой буквы от общего колличества
     for i in range(0, len(key)):
-        sum += number_of_letters[key[i]]
-
-    for i in range(0, len(key)):
-        number_of_letters[key[i]] /= sum
+        number_of_letters[key[i]] /= sum_
 
     return number_of_letters
+
 
 main_str = """
 Не выходи из комнаты, не совершай ошибку.

@@ -20,16 +20,16 @@ class Book:
         name (str): Название книги.
         pages (int): Количество страниц в книге.
     """
-    def __init__(self, id: int, name: str, pages: int):
+    def __init__(self, id_: int, name: str, pages: int):
 
-        if not isinstance(id, int):
+        if not isinstance(id_, int):
             raise TypeError('id должен быть int')
         if not isinstance(pages, int):
             raise TypeError('pages должен быть int')
         if not isinstance(name, str):
             raise TypeError('name должен быть строкой')
 
-        self.id = id
+        self.id_ = id_
         self.name = name
         self.pages = pages
 
@@ -43,7 +43,7 @@ class Book:
         """
         Возвращает строковое представление объекта для разработчиков.
         """
-        return f"Book(id={self.id}, name='{self.name}', pages={self.pages})"
+        return f"Book(id={self.id_}, name='{self.name}', pages={self.pages})"
 
 class Library:
     """
@@ -70,11 +70,8 @@ class Library:
         if self.book_list == []:
             return self.last_index + 1
         else:
-            temp = 0
-            for i in range (0, len(self.book_list)):
-                if self.book_list[i].id > temp:
-                    temp = self.book_list[i].id
-            return temp + 1
+            max_id = max(book.id_ for book in self.book_list)
+            return max_id + 1
     
     def get_index_by_book_id(self, search_book_id: int):
         """
@@ -83,14 +80,10 @@ class Library:
         Параметры:
             search_book_id (int): Идентификатор книги для поиска.
         """
-        temp_list = []
-        for i in range(0, len(self.book_list)):
-            if self.book_list[i].id == search_book_id:
-                temp_list.append(i)
-        if temp_list == []:
-            raise ValueError(f'Книги с запрашиваемым id {search_book_id} не существует')
-        else:
-            return ' '.join(map(str, temp_list))
+
+        for index, fruit in enumerate(self.book_list):
+            if fruit.id_ == search_book_id:
+                return index
                 
                 
 if __name__ == '__main__':
